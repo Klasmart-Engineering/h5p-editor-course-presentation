@@ -227,6 +227,10 @@
 .h5p-dragnbar-dialogcards-button:before {
   content: "\e900";
 }
+.h5p-dragnbar-speakthewords-button:before {
+  font-family: 'H5PFontIcons';
+  content: "\e908";
+}
 .h5p-dragnbar-shape-button:before {
   content: "\e91c";
 }
