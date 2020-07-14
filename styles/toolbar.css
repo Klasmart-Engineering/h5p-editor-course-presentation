@@ -228,8 +228,8 @@
   content: "\e900";
 }
 .h5p-dragnbar-speakthewords-button:before {
-  font-family: 'H5PFontIcons';
-  content: "\e908";
+  font-family: 'H5PFontAwesome4';
+  content: "\f130";
 }
 .h5p-dragnbar-shape-button:before {
   content: "\e91c";
