@@ -183,6 +183,11 @@
       "machineName": "H5P.ImageMultipleHotspotQuestion",
       "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.ImageSequencing",
+      "majorVersion": 1,
+      "minorVersion": 1
     }
   ]
 }

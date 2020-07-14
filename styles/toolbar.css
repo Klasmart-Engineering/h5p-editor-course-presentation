@@ -235,6 +235,10 @@
   font-family: 'H5PFontAwesome4';
   content: "\f05d";
 }
+.h5p-dragnbar-imagesequencing-button:before {
+  font-family: 'H5PFontAwesome4';
+  content: "\f009";
+}
 .h5p-dragnbar-shape-button:before {
   content: "\e91c";
 }
