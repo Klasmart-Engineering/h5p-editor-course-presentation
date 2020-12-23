@@ -547,14 +547,28 @@ H5PEditor.CoursePresentationKID.prototype.initializeDNB = function () {
     });
 
     // Resizing has stopped
-    that.dnb.dnr.on('stoppedResizing', function () {
+    that.dnb.dnr.on('stoppedResizing', function (event) {
       var elementParams = that.params.slides[that.cp.$current.index()].elements[that.dnb.$element.index()];
 
-      // Store new element position
-      elementParams.width = that.dnb.$element.width() / (that.cp.$current.innerWidth() / 100);
-      elementParams.height = that.dnb.$element.height() / (that.cp.$current.innerHeight() / 100);
-      elementParams.y = ((parseFloat(that.dnb.$element.css('top')) / that.cp.$current.innerHeight()) * 100);
-      elementParams.x = ((parseFloat(that.dnb.$element.css('left')) / that.cp.$current.innerWidth()) * 100);
+      // Account for possible rotation (scaling required)
+      const matrixComponents = that.dnb.getMatrixComponents(that.dnb.$element.children().first());
+
+      // Store new element position with float precision
+      const elementStyle = window.getComputedStyle(that.dnb.$element[0]);
+      const elementWidth = parseFloat(elementStyle.getPropertyValue('width'));
+      const elementHeight = parseFloat(elementStyle.getPropertyValue('height'));
+      const currentStyle = window.getComputedStyle(that.cp.$current[0]);
+      const currentWidth = parseFloat(currentStyle.getPropertyValue('width'));
+      const currentHeight = parseFloat(currentStyle.getPropertyValue('height'));
+
+      elementParams.width = elementWidth * matrixComponents.scale.x / (currentWidth / 100);
+      elementParams.height = elementHeight * matrixComponents.scale.y / (currentHeight / 100);
+      elementParams.y = ((parseFloat(that.dnb.$element.css('top')) / currentHeight) * 100);
+      elementParams.x = ((parseFloat(that.dnb.$element.css('left')) / currentWidth) * 100);
+
+      // Rotated elements could go out of bounds
+      const $element = that.params.slides[that.cp.$current.index()].elementContainers[that.dnb.$element.index()];
+      that.fitElement($element, elementParams);
 
       // Stop reflow loop and run one last reflow
       if (elementParams.action && elementParams.action.library.split(' ')[0] === 'H5P.ContinuousText') {
@@ -565,6 +579,18 @@ H5PEditor.CoursePresentationKID.prototype.initializeDNB = function () {
       // Trigger element resize
       var elementInstance = that.cp.elementInstances[that.cp.$current.index()][that.dnb.$element.index()];
       H5P.trigger(elementInstance, 'resize');
+    });
+
+    // Stopped rotation listener
+    that.dnb.dnr.on('stoppedRotating', function (event) {
+      const elementParams = that.params.slides[that.cp.$current.index()].elements[that.dnb.$element.index()];
+      elementParams.angle = event.data.angle;
+
+      const $element = that.params.slides[that.cp.$current.index()].elementContainers[that.dnb.$element.index()];
+
+      that.fitElement($element, elementParams);
+
+      that.dnb.dnr.trigger('stoppedResizing');
     });
 
     // Update params when the element is dropped.
@@ -1697,7 +1723,8 @@ H5PEditor.CoursePresentationKID.prototype.addToDragNBar = function (element, ele
   const options = {
     disableResize: elementParams.displayAsButton,
     lock: (type === 'H5P.Chart' && elementParams.action.params.graphMode === 'pieChart'),
-    cornerLock: (type === 'H5P.Image' || type === 'H5P.Shape')
+    cornerLock: (type === 'H5P.Image' || type === 'H5P.Shape'),
+    disableRotate: false // TODO: Decide based on content type
   };
 
   if (type === 'H5P.Shape') {
@@ -1825,6 +1852,7 @@ H5PEditor.CoursePresentationKID.prototype.removeElement = function (element, $wr
   this.elements[slideIndex].splice(elementIndex, 1);
   this.cp.elementInstances[slideIndex].splice(elementIndex, 1);
   this.params.slides[slideIndex].elements.splice(elementIndex, 1);
+  this.params.slides[slideIndex].elementContainers.splice(elementIndex, 1);
   this.cp.children[slideIndex].removeChild(elementIndex);
 
   $wrapper.remove();
@@ -2095,6 +2123,8 @@ H5PEditor.CoursePresentationKID.prototype.fitElement = function ($element, eleme
 
   // Apply style
   $element.css(style);
+
+  self.dnb.fitToChild($element, true);
 };
 
 /**
