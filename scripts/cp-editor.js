@@ -551,7 +551,7 @@ H5PEditor.CoursePresentationKID.prototype.initializeDNB = function () {
       var elementParams = that.params.slides[that.cp.$current.index()].elements[that.dnb.$element.index()];
 
       // Account for possible rotation (scaling required)
-      const matrixComponents = that.dnb.getMatrixComponents(that.dnb.$element.children().first());
+      const matrixComponents = that.dnb.getCSSTransformValues(that.dnb.$element.children().first());
 
       // Store new element position with float precision
       const elementStyle = window.getComputedStyle(that.dnb.$element[0]);
