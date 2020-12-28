@@ -2124,7 +2124,7 @@ H5PEditor.CoursePresentationKID.prototype.fitElement = function ($element, eleme
   // Apply style
   $element.css(style);
 
-  self.dnb.fitToChild($element);
+  self.dnb.fitToChild($element, false);
 };
 
 /**
