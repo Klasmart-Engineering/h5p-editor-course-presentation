@@ -238,7 +238,7 @@
   outline: 0;
 }
 
-.h5p-course-presentation .h5p-element:focus .h5p-element-outer,
+.h5p-course-presentation .h5p-element:focus .h5p-element-outer:not(.h5p-scale-distortion),
 .h5p-course-presentation .h5p-element.focused .h5p-element-outer:not(.h5p-scale-distortion) {
   outline: 1px solid #0099ff;
 }
