@@ -158,9 +158,16 @@ H5PEditor.CoursePresentationKID.prototype.addElement = function (library, option
       var libraryName = library.split(' ')[0];
       switch (libraryName) {
         case 'H5P.Audio':
-          elementParams.width = 2.577632696;
-          elementParams.height = 5.091753604;
+          elementParams.x = 2.7933; // CSS Percent
+          elementParams.y = 71.9603; // CSS Percent
+          elementParams.width = 120 / 16;
+          elementParams.height = 120 / 9;
           elementParams.action.params.fitToWrapper = true;
+
+          this.dnbPositionOverride = {
+            x: elementParams.x,
+            y: elementParams.y
+          };
           break;
 
         case 'H5P.DragQuestion':
@@ -1437,6 +1444,12 @@ H5PEditor.CoursePresentationKID.prototype.generateForm = function (elementParams
       hideFields.push('buttonSize');
     }
 
+    if (type !== 'H5P.Audio') {
+      hideFields.push('customImagePlay');
+      hideFields.push('customImagePlayPaused');
+      hideFields.push('customImagePause');
+    }
+
     // Only display goToSlide field for goToSlide elements
     self.hideFields(elementFields, hideFields);
   }
@@ -1932,6 +1945,19 @@ H5PEditor.CoursePresentationKID.prototype.showElementForm = function (element, $
       }, 1);
     }
     else {
+      // Adjust size for custom audio button image
+      if (
+        elementParams.action && typeof elementParams.action.library === 'string' && elementParams.action.library.split(' ')[0] === 'H5P.Audio' &&
+        elementParams.customImagePlay && elementParams.customImagePlay.width && elementParams.customImagePlay.height
+      ) {
+        if (elementParams.customImagePlay.width > elementParams.customImagePlay.height) {
+          elementParams.width = elementParams.height / elementParams.customImagePlay.height * elementParams.customImagePlay.width / that.slideRatio;
+        }
+        else {
+          elementParams.height = elementParams.width / elementParams.customImagePlay.width * elementParams.customImagePlay.height * that.slideRatio;
+        }
+      }
+
       that.redrawElement($wrapper, element, elementParams);
     }
 
