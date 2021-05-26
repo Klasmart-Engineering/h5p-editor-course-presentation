@@ -1435,6 +1435,7 @@ H5PEditor.CoursePresentationKID.prototype.generateForm = function (elementParams
       // Continuous Text or Go To Slide cannot be displayed as a button
       hideFields.push('displayAsButton');
       hideFields.push('buttonSize');
+      hideFields.push('buttonImage');
     }
     else if (type === "H5P.Shape") {
       hideFields.push('solution');
@@ -1442,6 +1443,7 @@ H5PEditor.CoursePresentationKID.prototype.generateForm = function (elementParams
       hideFields.push('backgroundOpacity');
       hideFields.push('displayAsButton');
       hideFields.push('buttonSize');
+      hideFields.push('buttonImage');
     }
 
     if (type !== 'H5P.Audio') {
@@ -1473,20 +1475,38 @@ H5PEditor.CoursePresentationKID.prototype.generateForm = function (elementParams
 
   // Show or hide button size dropdown depending on display as button checkbox
   element.$form.find('.field-name-displayAsButton').each(function () { // TODO: Use showWhen in semantics.json instead…
-    var buttonSizeField = ns.$(this).parent().find('.field-name-buttonSize');
+    const $checkbox = ns.$(this).find('input');
+    const $buttonSize = ns.$(this).parent().find('.field-name-buttonSize');
+    const $buttonImage = ns.$(this).parent().find('.field-name-buttonImage');
 
-    if (!ns.$(this).find("input")[0].checked) {
-      buttonSizeField.addClass("h5p-hidden2");
+    // If semantics provides field named buttonImage
+    const buttonImageField = element.children.reduce(function(found, current) {
+      if (found) {
+        return found;
+      }
+
+      return (current.field && current.field.name === 'buttonImage') ? current : null;
+    }, null);
+
+    // Callback to toggle button settings fields on and off
+    const toggleButtonFields = function () {
+      window.requestAnimationFrame(function () {
+        const displayAsButton = $checkbox[0].checked;
+        const hasCustomImage = buttonImageField.$file.find('a.thumbnail').length > 0;
+
+        $buttonSize.toggleClass('h5p-hidden2', !displayAsButton || hasCustomImage);
+        $buttonImage.toggleClass('h5p-hidden2', !displayAsButton);
+      });
     }
 
-    ns.$(this).find("input").change(function (e) {
-      if (e.target.checked) {
-        buttonSizeField.removeClass("h5p-hidden2");
-      }
-      else {
-        buttonSizeField.addClass("h5p-hidden2");
-      }
-    });
+    // Register listener for changes
+    if (buttonImageField) {
+      buttonImageField.changes.push(toggleButtonFields);
+    }
+    $checkbox.change(toggleButtonFields);
+
+    // Set initially
+    toggleButtonFields();
   });
 
   // Set correct aspect ratio on new images.
@@ -1733,11 +1753,14 @@ H5PEditor.CoursePresentationKID.prototype.addToDragNBar = function (element, ele
 
   var type = (elementParams.action ? elementParams.action.library.split(' ')[0] : null);
 
+  // Check whether element is a button with a custom image
+  const isCustomButton = elementParams.displayAsButton && elementParams.buttonImage && elementParams.buttonImage.path !== undefined;
+
   const options = {
-    disableResize: elementParams.displayAsButton,
+    disableResize: elementParams.displayAsButton && !isCustomButton,
     lock: (type === 'H5P.Chart' && elementParams.action.params.graphMode === 'pieChart'),
-    cornerLock: (type === 'H5P.Image' || type === 'H5P.Shape'),
-    disableRotate: false // TODO: Decide based on content type
+    cornerLock: (type === 'H5P.Image' || type === 'H5P.Shape' || isCustomButton),
+    disableRotate: false || isCustomButton // TODO: Decide based on content type
   };
 
   if (type === 'H5P.Shape') {
@@ -1930,6 +1953,18 @@ H5PEditor.CoursePresentationKID.prototype.showElementForm = function (element, $
     // Validate / save children
     for (var i = 0; i < element.children.length; i++) {
       element.children[i].validate();
+    }
+
+    // Adjust aspect ratio of buttons
+    if (that.usesCustomButtonImage(elementParams)) {
+      if (elementParams.buttonImage.width && elementParams.buttonImage.height) {
+        if (elementParams.buttonImage.width > elementParams.buttonImage.height) {
+          elementParams.width = elementParams.height / elementParams.buttonImage.height * elementParams.buttonImage.width / that.slideRatio;
+        }
+        else {
+          elementParams.height = elementParams.width / elementParams.buttonImage.width * elementParams.buttonImage * that.slideRatio;
+        }
+      }
     }
 
     if (isContinuousText) {
@@ -2150,7 +2185,16 @@ H5PEditor.CoursePresentationKID.prototype.fitElement = function ($element, eleme
   // Apply style
   $element.css(style);
 
-  self.dnb.fitToChild($element, false);
+  self.dnb.fitToChild($element, self.usesCustomButtonImage);
+};
+
+/**
+ * Determine if element uses custom image button.
+ * @param {object} element Element.
+ * @return {boolean} True, if element uses custom image button.
+ */
+H5PEditor.CoursePresentationKID.prototype.usesCustomButtonImage = function (element) {
+  return element.displayAsButton && element.buttonImage && typeof element.buttonImage.path === 'string';
 };
 
 /**
