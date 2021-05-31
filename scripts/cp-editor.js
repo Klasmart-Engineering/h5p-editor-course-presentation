@@ -300,8 +300,15 @@ H5PEditor.CoursePresentationKID.prototype.appendTo = function ($wrapper) {
     })
     .next()
     .click(function () {
-      var newSlide = H5P.cloneObject(that.params.slides[that.cp.$current.index()], true);
-      newSlide.keywords = [];
+      const oldSlide = that.params.slides[that.cp.$current.index()];
+      var newSlide = H5P.cloneObject(
+        {
+          elements: oldSlide.elements,
+          keywords: [],
+          slideBackgroundSelector: oldSlide.slideBackgroundSelector
+        },
+        true
+      );
       that.addSlide(newSlide);
       H5P.ContinuousText.Engine.run(that);
       that.updateSlidesSidebar();
