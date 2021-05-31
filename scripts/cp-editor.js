@@ -1962,7 +1962,7 @@ H5PEditor.CoursePresentationKID.prototype.showElementForm = function (element, $
           elementParams.width = elementParams.height / elementParams.buttonImage.height * elementParams.buttonImage.width / that.slideRatio;
         }
         else {
-          elementParams.height = elementParams.width / elementParams.buttonImage.width * elementParams.buttonImage * that.slideRatio;
+          elementParams.height = elementParams.width / elementParams.buttonImage.width * elementParams.buttonImage.height * that.slideRatio;
         }
       }
     }
