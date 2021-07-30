@@ -718,7 +718,8 @@ H5PEditor.CoursePresentationKID.prototype.initializeDNB = function () {
           that.showConfirmationDialog({
             headerText: H5PEditor.t('core', 'pasteError'),
             dialogText: H5PEditor.t('H5P.DragNBar', 'unableToPaste'),
-            confirmText: H5PEditor.t('H5PEditor.CoursePresentationKID', 'ok')
+            confirmText: H5PEditor.t('H5PEditor.CoursePresentationKID', 'ok'),
+            cancelText: ' '
           });
         }
       }
@@ -737,7 +738,8 @@ H5PEditor.CoursePresentationKID.prototype.initializeDNB = function () {
           that.showConfirmationDialog({
             headerText: H5PEditor.t('core', 'pasteError'),
             dialogText: H5PEditor.t('H5P.DragNBar', 'unableToPaste'),
-            confirmText: H5PEditor.t('H5PEditor.CoursePresentationKID', 'ok')
+            confirmText: H5PEditor.t('H5PEditor.CoursePresentationKID', 'ok'),
+            cancelText: ' '
           });
         }
       }
