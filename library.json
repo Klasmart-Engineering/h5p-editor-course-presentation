@@ -208,6 +208,11 @@
       "machineName": "H5P.AudioRecorder",
       "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.ImagePair",
+      "majorVersion": 1,
+      "minorVersion": 5
     }
   ]
 }

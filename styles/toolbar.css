@@ -134,6 +134,7 @@
 .h5p-dragnbar-jigsawpuzzlekid-button:before,
 .h5p-dragnbar-essay-button:before,
 .h5p-dragnbar-audiorecorder-button:before,
+.h5p-dragnbar-imagepair-button:before,
 .h5p-dragnbar-interactivevideo-button:before,
 .h5p-dragnbar-chart-button:before {
   font-family: 'H5PFontAwesome4';
@@ -246,6 +247,9 @@
 }
 .h5p-dragnbar-audiorecorder-button:before {
   content: "\f130";
+}
+.h5p-dragnbar-imagepair-button:before {
+  content: "\f0db";
 }
 .h5p-dragnbar-shape-button:before {
   content: "\e91c";
