@@ -198,6 +198,11 @@
       "machineName": "EditorFontKidsLoop",
       "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.Essay",
+      "majorVersion": 1,
+      "minorVersion": 3
     }
   ]
 }
