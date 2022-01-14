@@ -188,6 +188,11 @@
       "machineName": "H5P.JigsawPuzzleKID",
       "majorVersion": 0,
       "minorVersion": 4
+    },
+    {
+      "machineName": "H5P.Essay",
+      "majorVersion": 1,
+      "minorVersion": 3
     }
   ]
 }
