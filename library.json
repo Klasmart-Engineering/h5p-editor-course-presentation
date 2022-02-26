@@ -1,7 +1,7 @@
 {
   "title": "Course Presentation Editor (KidsLoop)",
   "majorVersion": 1,
-  "minorVersion": 24,
+  "minorVersion": 25,
   "patchVersion": 0,
   "runnable": 0,
   "machineName": "H5PEditor.CoursePresentationKID",
@@ -45,9 +45,14 @@
       "minorVersion": 5
     },
     {
+      "machineName": "FontKidsLoop",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
       "machineName": "H5P.DragNBar",
       "majorVersion": 1,
-      "minorVersion": 5
+      "minorVersion": 6
     },
     {
       "machineName": "H5P.Image",
@@ -62,7 +67,7 @@
     {
       "machineName": "H5P.AdvancedText",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.Link",
@@ -77,47 +82,47 @@
     {
       "machineName": "H5P.Table",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.Video",
       "majorVersion": 1,
-      "minorVersion": 5
+      "minorVersion": 6
     },
     {
       "machineName": "H5P.Audio",
       "majorVersion": 1,
-      "minorVersion": 4
+      "minorVersion": 5
     },
     {
       "machineName": "H5P.Blanks",
       "majorVersion": 1,
-      "minorVersion": 12
+      "minorVersion": 13
     },
     {
       "machineName": "H5P.SingleChoiceSet",
       "majorVersion": 1,
-      "minorVersion": 11
+      "minorVersion": 12
     },
     {
       "machineName": "H5P.MultiChoice",
       "majorVersion": 1,
-      "minorVersion": 14
+      "minorVersion": 15
     },
     {
       "machineName": "H5P.TrueFalse",
       "majorVersion": 1,
-      "minorVersion": 6
+      "minorVersion": 7
     },
     {
       "machineName": "H5P.DragQuestion",
       "majorVersion": 1,
-      "minorVersion": 13
+      "minorVersion": 14
     },
     {
       "machineName": "H5P.Summary",
       "majorVersion": 1,
-      "minorVersion": 10
+      "minorVersion": 11
     },
     {
       "machineName": "H5P.ExportableTextArea",
@@ -132,17 +137,17 @@
     {
       "machineName": "H5P.CoursePresentationKID",
       "majorVersion": 1,
-      "minorVersion": 24
+      "minorVersion": 25
     },
     {
       "machineName": "H5P.MarkTheWords",
       "majorVersion": 1,
-      "minorVersion": 9
+      "minorVersion": 10
     },
     {
       "machineName": "H5P.DragText",
       "majorVersion": 1,
-      "minorVersion": 8
+      "minorVersion": 9
     },
     {
       "machineName": "H5P.TwitterUserFeed",
@@ -152,7 +157,7 @@
     {
       "machineName": "H5P.Dialogcards",
       "majorVersion": 1,
-      "minorVersion": 8
+      "minorVersion": 10
     },
     {
       "machineName": "H5PEditor.ColorSelector",
@@ -172,22 +177,22 @@
     {
       "machineName": "H5P.SpeakTheWords",
       "majorVersion": 1,
-      "minorVersion": 3
+      "minorVersion": 4
     },
     {
       "machineName": "H5P.ImageMultipleHotspotQuestion",
       "majorVersion": 1,
-      "minorVersion": 0
+      "minorVersion": 1
     },
     {
       "machineName": "H5P.ImageSequencing",
       "majorVersion": 1,
-      "minorVersion": 1
+      "minorVersion": 2
     },
     {
       "machineName": "H5P.JigsawPuzzleKID",
       "majorVersion": 0,
-      "minorVersion": 4
+      "minorVersion": 5
     }
   ]
 }

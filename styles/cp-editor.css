@@ -186,7 +186,7 @@
   font-size: inherit;
   box-shadow: none;
   border: none;
-  font-family: H5PDroidSans, sans-serif;
+  font-family: 'Roboto', sans-serif;
   word-break: break-all;
 }
 .h5p-course-presentation .h5p-keywords-wrapper .h5p-current span {
@@ -353,7 +353,7 @@
 .h5p-course-presentation .ui-widget textarea,
 .h5p-course-presentation .ui-widget button {
   font-size: 1em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .h5peditor .ui-dialog .ui-dialog-content {
   position: static;
