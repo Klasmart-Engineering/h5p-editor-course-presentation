@@ -162,7 +162,7 @@
     {
       "machineName": "H5PEditor.ColorSelector",
       "majorVersion": 1,
-      "minorVersion": 2
+      "minorVersion": 4
     },
     {
       "machineName": "H5PEditor.RadioSelector",
@@ -193,6 +193,11 @@
       "machineName": "H5P.JigsawPuzzleKID",
       "majorVersion": 0,
       "minorVersion": 5
+    },
+    {
+      "machineName": "EditorFontKidsLoop",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ]
 }
